@@ -1,0 +1,53 @@
+
+{% load static %}
+
+<head>
+    <title>Authentication Project</title>
+
+    <!--Bootstrap CSS-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static "authenticationApp/style.css" %}">
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+    <div class="container my-3">
+        {% if user.is_authenticated %}
+        <h1>Logged in as {{user.username}}</h1>
+
+        <form action="{% url 'logoutuser' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-lg my-3">Logout</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card bg-primary text-center text-white" style="width: 20rem;">
+                    <div class="card-body">
+                        <h2 class="card-title">Sign Up</h2>
+                        <hr>
+                        <h3><p class="card-text">If you are a new user sign up now.</p></h3>
+                        <button class="btn btn-outline-light btn-lg"><a href="{% url 'signupuser' %}" class="card-link text-white ">Signup</a></button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card bg-primary text-center text-white" style="width: 20rem;">
+                    <div class="card-body">
+                        <h2 class="card-title">Log In</h2>
+                        <hr>
+                        <h3><p class="card-text">If you already have account log in now.</p></h3>
+                        <button class="btn btn-outline-light btn-lg"><a href="{% url 'loginuser' %}" class="card-link text-white ">Login</a></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endif %}
+
+</body>
+
+
